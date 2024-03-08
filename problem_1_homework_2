@@ -1,0 +1,113 @@
+#include <iostream>
+using namespace std;
+class queue {
+    struct node
+    {
+        int item;
+        int priority;
+        node* next;
+    };
+    node* head;
+
+public:
+    queue()
+    {
+        head = NULL;
+    }
+    bool isempty()
+    {
+        return head == NULL;
+
+    }
+    void enqueue(int item, int value)
+    {
+        node* current, * temp;
+        temp = new node;
+        temp->item = item;
+        temp->priority = value;
+        if (head == NULL || value < head->priority)
+        {
+            temp->next = head;
+            head = temp;
+        }
+        else
+        {
+            current = head;
+            while (current->next != NULL && current->next->priority <= value)
+            {
+                current = current->next;
+                temp->next = current->next;
+                current->next = temp;
+            }
+
+        }
+
+
+    }
+    void dequeue()
+    {
+        node* ptr;
+        ptr = head;
+        if (head == NULL)
+        {
+            cout << "queue is empty\n";
+        }
+        else
+        {
+            ptr = head;
+            head = head->next;
+            delete(ptr);
+
+
+        }
+
+
+
+
+
+
+    }
+
+    void display()
+    {
+
+        node* ptr;
+        ptr = head;
+        if (head == NULL)
+            cout << "Queue is empty\n";
+        else
+        {
+          
+            while (ptr != NULL)
+            {
+                cout << ptr->priority << "  " << ptr->item << endl;
+                ptr = ptr->next;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+};
+int main()
+{
+    queue q;
+    q.enqueue(9, 6);
+    q.enqueue(5, 1);
+    q.enqueue(8, 6);
+    q.display();
+
+}
