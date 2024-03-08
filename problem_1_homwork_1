@@ -1,0 +1,172 @@
+#include <iostream>
+using namespace std;
+class queue {
+    struct node
+    {
+        int item;
+        node* next;
+    };
+    node* front;
+    node* rear;
+    int size;
+public:
+    queue()
+    {
+        front = rear = NULL;
+        size = 0;
+    }
+    bool isempty()
+    {
+        return size == 0;
+
+    }
+    void enqueue_rear(int item)
+    {
+        node* newnode = new node;
+        newnode->item = item;
+        if (isempty())
+        {
+
+            front = rear = newnode;
+            newnode->next = NULL;
+        }
+        else
+        {
+            rear->next = newnode;
+            rear = newnode;
+            newnode->next = NULL;
+
+
+
+        }
+        size++;
+
+
+
+    }
+    void enqueue_front(int item)
+    {
+        node* newnode = new node;
+        newnode->item = item;
+        if (size == 0)
+        {
+            front = rear = newnode;
+            size++;
+        }
+        else
+        {
+            newnode->next = front;
+            front = newnode;
+
+            size++;
+
+        }
+
+
+
+    }
+    int dequeue_front()
+    {
+        if (isempty())
+        {
+            return 0;
+        }
+        else
+        {
+            node* current = front;
+            if (front == rear)
+            {
+                front = rear = NULL;
+                size--;
+                return front->item;
+            }
+            else
+            {
+                // int element = current->data;
+                front = front->next;
+                current->next = NULL;
+                int element = current->item;
+                size--;
+                delete(current);
+                return element;
+            }
+
+
+        }
+
+
+
+
+    }
+
+    int dequeue_rear()
+    {
+        if (front == NULL)
+        {
+            return 0;
+        }
+        int element;
+        if (front == rear)
+        {
+            element = front->item;
+            delete(front);
+            //return element;
+            rear = front = NULL;
+        }
+        else
+        {
+            node* current = front;
+            while (current->next != rear)
+            {
+                current = current->next;
+            }
+            element = rear->item;
+            delete(rear);
+            rear = current;
+            rear->next = NULL;
+
+
+
+
+        }
+        size--;
+        return element;
+
+
+
+
+    }
+
+
+
+
+
+
+    void display()
+    {
+        node* current = front;
+        while (current != NULL)
+        {
+            cout << current->item << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+
+};
+
+int main()
+{
+    queue q;
+    q.enqueue_rear(9);
+    q.enqueue_rear(87);
+    q.enqueue_rear(6);
+    q.enqueue_rear(4);
+    q.enqueue_front(11);
+   // q.dequeue_front();
+    q.dequeue_rear();
+    
+    q.display();
+    
+}
