@@ -1,0 +1,60 @@
+
+#include <iostream>
+using namespace std;
+#include <stack>
+#include<algorithm>
+struct queue {
+
+    stack<int> s1, s2;
+    int add_elements = 0;
+    int size;
+    
+public:
+    queue(int size)
+    {
+        size = size;
+    }
+    bool isfull()
+    {
+        return add_elements == size;
+    }
+    
+    void enqueue(int item)
+    {
+        if (!isfull())
+        {
+            
+            s1.push(item);
+            add_elements++;
+        }
+        
+
+    }
+    int dequeue()
+    {
+        if (s1.empty())
+        {
+            return -1;
+        }
+        int result = s1.top();
+        s1.pop();
+        return result;
+    }
+   
+
+};
+
+int main()
+{
+    queue q(3);
+    
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+    cout << q.dequeue() << endl;
+
+    
+}
